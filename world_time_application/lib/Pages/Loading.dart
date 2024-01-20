@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../Services/world_time.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Loading extends StatefulWidget {
   const Loading({super.key});
@@ -11,14 +10,19 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
-  String time = 'loading';
-
+  // this function helps us to get the time from the world time api
   void setupWorldTime() async {
     WorldTime instance = WorldTime(
-        location: 'Ho Chi Minh', flag: 'Vietnam.png', url: 'Asia/Ho_Chi_Minh');
+        location: 'Ho Chi Minh', flag: 'Vietnam.jpg', url: 'Asia/Ho_Chi_Minh');
     await instance.getTime();
-    setState(() {
-      time = instance.time;
+    // it helps us to navigate to the home page
+    // the arguments is a map and it helps us to pass data to the home page
+    // we pass the data to home page because we want to display the data on the home page
+    Navigator.pushReplacementNamed(context, '/home', arguments: {
+      'location': instance.location,
+      'flag': instance.flag,
+      'time': instance.time,
+      'isDaytime': instance.isDaytime
     });
   }
 
@@ -30,7 +34,13 @@ class _LoadingState extends State<Loading> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Padding(padding: const EdgeInsets.all(50.0), child: Text(time)));
+    return const Scaffold(
+      body: Center(
+        child: SpinKitWanderingCubes(
+          color: Colors.blue,
+          size: 80.0,
+        ),
+      ),
+    );
   }
 }
