@@ -5,11 +5,11 @@ import 'Pages/Loading.dart';
 
 void main() {
   runApp(MaterialApp(
-    initialRoute: '/home',
-    routes:{
-      '/':(context) => const Loading(),
-      '/home':(context) => const HOME(),
-      '/location':(context) => const ChooseLocation(),
+    initialRoute: '/',
+    routes: {
+      '/': (context) => const Loading(),
+      '/home': (context) => const HOME(),
+      '/location': (context) => const ChooseLocation(),
     },
-    ));
+  ));
 }
