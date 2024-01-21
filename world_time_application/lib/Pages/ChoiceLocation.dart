@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../Services/world_time.dart';
 import 'dart:io';
-import 'package:path_provider/path_provider.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 class ChooseLocation extends StatefulWidget {
   const ChooseLocation({super.key});
@@ -12,30 +12,49 @@ class ChooseLocation extends StatefulWidget {
 
 class _ChooseLocationState extends State<ChooseLocation> {
   // we create a list of world time objects
-  List<WorldTime> locations = [
-    WorldTime(
-        url: 'Asia/Ho_Chi_Minh',
-        location: 'Ho Chi Minh',
-        flag: 'Vietnam Flag.jpg'),
-    WorldTime(
-        url: 'America/Havana', location: 'La Habana', flag: 'Cuba Flag.jpg'),
-    WorldTime(
-        url: 'Europe/Moscow', location: 'Moscow', flag: 'Russia Flag.jpg'),
-    WorldTime(
-        url: 'Asia/Thimphu', location: 'Thimphu', flag: 'Bhutan Flag.jpg'),
-    WorldTime(url: 'Africa/Cairo', location: 'Cairo', flag: 'Egypt Flag.jpg'),
-    WorldTime(url: 'Asia/Tokyo', location: 'Tokyo', flag: 'Japan Flag.jpg'),
-    WorldTime(url: 'Asia/Seoul', location: 'Seoul', flag: 'Korea Flag.jpg'),
-    WorldTime(url: 'Asia/Tehran', location: 'Tehran', flag: 'Iran Flag.jpg'),
-    WorldTime(url: 'Europe/London', location: 'London', flag: 'UK Flag.jpg'),
-    WorldTime(
-        url: 'Asia/Hong_Kong',
-        location: 'Hong Kong',
-        flag: 'Hong Kong Flag.jpg'),
-    WorldTime(
-        url: 'America/New_York', location: 'New York', flag: 'USA Flag.jpg'),
-  ];
-  void updateTime(index) async {
+  // List<WorldTime> locations = [
+    // WorldTime(
+    //     url: 'Asia/Ho_Chi_Minh',
+    //     location: 'Ho Chi Minh',
+    //     flag: 'VietnamFlag.jpg'),
+    // WorldTime(
+    //     url: 'America/Havana', location: 'La Habana', flag: 'CubaFlag.jpg'),
+    // WorldTime(url: 'Europe/Moscow', location: 'Moscow', flag: 'RussiaFlag.jpg'),
+    // WorldTime(url: 'Asia/Thimphu', location: 'Thimphu', flag: 'BhutanFlag.jpg'),
+    // WorldTime(url: 'Africa/Cairo', location: 'Cairo', flag: 'EgyptFlag.jpg'),
+    // WorldTime(url: 'Asia/Tokyo', location: 'Tokyo', flag: 'JapanFlag.jpg'),
+    // WorldTime(url: 'Asia/Seoul', location: 'Seoul', flag: 'KoreaFlag.jpg'),
+    // WorldTime(url: 'Asia/Tehran', location: 'Tehran', flag: 'IranFlag.jpg'),
+    // WorldTime(url: 'Europe/London', location: 'London', flag: 'UKFlag.jpg'),
+    // WorldTime(
+    //     url: 'Asia/Hong_Kong',
+    //     location: 'Hong Kong',
+    //     flag: 'Hong_KongFlag.jpg'),
+    // WorldTime(
+    //     url: 'America/New_York', location: 'New York', flag: 'USAFlag.jpg'),
+  // ];
+
+  void loadData(locations) async {
+    // we read the data from the file
+    var data = await rootBundle.loadString('assets/data/data.txt');
+    // we split the data into a list of strings
+    List<String> tmp = data.split('\n');
+    // we loop through the list of strings
+    for (var location in tmp) {
+      // we split each string into a list of strings
+      List<String> locationData = location.split(', ');
+      // we create a new WorldTime object and add it to the list of locations
+      locations.add(WorldTime(
+          url: locationData[0],
+          location: locationData[1],
+          flag: locationData[2]));
+    }
+   for(int i=0;i<locations.length;++i)
+  { print(locations[i]);
+  }
+  }
+
+  void updateTime(index, locations) async {
     WorldTime instance = locations[index];
     await instance.getTime();
     // pop function helps us to go back to the home page
@@ -50,6 +69,16 @@ class _ChooseLocationState extends State<ChooseLocation> {
 
   @override
   Widget build(BuildContext context) {
+    List<WorldTime> locations = [];
+    loadData(locations);
+    // var data = await rootBundle.loadString('assets/data/data.txt');
+    // List<String> locations = data.split('\n');
+    // for (var location in locations) {
+    //   List<String> locationData = location.split(', ');
+    //   this.locations.add(WorldTime(
+    //       url: locationData[0],
+    //       location: locationData[1],
+    //       flag: locationData[2]));
     return Scaffold(
         backgroundColor: Colors.cyan[100],
         appBar: AppBar(
@@ -69,12 +98,12 @@ class _ChooseLocationState extends State<ChooseLocation> {
                 child: Card(
                     child: ListTile(
                   onTap: () {
-                    updateTime(index);
+                    updateTime(index,locations);
                   },
                   title: Text(locations[index].location),
                   leading: CircleAvatar(
                     backgroundImage:
-                        AssetImage('lib/assets/${locations[index].flag}'),
+                        AssetImage('assets/${locations[index].flag}'),
                   ),
                 )),
               );
