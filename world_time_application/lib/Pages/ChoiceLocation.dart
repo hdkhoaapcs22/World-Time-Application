@@ -34,6 +34,14 @@ class _ChooseLocationState extends State<ChooseLocation> {
     WorldTime(
         url: 'America/New_York', location: 'New York', flag: 'USA Flag.jpg'),
   ];
+  List<WorldTime> filteredLocations = [];
+
+  @override
+  void initState() {
+    filteredLocations = locations;
+    super.initState();
+  }
+
   void updateTime(index) async {
     WorldTime instance = locations[index];
     await instance.getTime();
@@ -45,6 +53,22 @@ class _ChooseLocationState extends State<ChooseLocation> {
       'time': instance.time,
       'isDaytime': instance.isDaytime
     });
+  }
+
+  void searchingHelper(value) {
+    List<WorldTime> temp = [];
+    if (temp.isEmpty == true) {
+      temp = locations;
+    } else {
+      temp = locations
+          .where((element) =>
+              element.location.toLowerCase().contains(value.toLowerCase()))
+          .toList();
+    }
+
+    setState(
+      () => filteredLocations = temp,
+    );
   }
 
   @override
@@ -60,9 +84,11 @@ class _ChooseLocationState extends State<ChooseLocation> {
           padding: const EdgeInsets.symmetric(vertical: 1.0, horizontal: 4.0),
           child: Column(children: <Widget>[
             const SizedBox(height: 10.0),
-            const TextField(
+            TextField(
               autocorrect: true,
-              decoration: InputDecoration(
+              onChanged: (unserInputString) =>
+                  searchingHelper(unserInputString),
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Search',
                 hintText: 'Search',
@@ -75,7 +101,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
               interactive: true,
               thickness: 8.0,
               child: ListView.builder(
-                itemCount: locations.length,
+                itemCount: filteredLocations.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(6.0),
@@ -84,10 +110,10 @@ class _ChooseLocationState extends State<ChooseLocation> {
                       onTap: () {
                         updateTime(index);
                       },
-                      title: Text(locations[index].location),
+                      title: Text(filteredLocations[index].location),
                       leading: CircleAvatar(
                         backgroundImage:
-                            AssetImage('lib/assets/${locations[index].flag}'),
+                            AssetImage('lib/assets/${filteredLocations[index].flag}'),
                       ),
                     )),
                   );
