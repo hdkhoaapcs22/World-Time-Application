@@ -80,7 +80,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.cyan[100],
         appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 2, 42, 110),
+          backgroundColor: const Color.fromARGB(255, 4, 97, 173),
           title: const Text(
             "Choose Location",
             style: TextStyle(
@@ -92,6 +92,50 @@ class _ChooseLocationState extends State<ChooseLocation> {
           ),
           centerTitle: true,
         ),
+        endDrawer: SizedBox(
+            width: 250.0,
+            child: Drawer(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                child: ListView(padding: EdgeInsets.zero, children: const [
+                  DrawerHeader(
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 236, 91, 140),
+                      ),
+                      child: Center(
+                          child: Text(
+                        "OPTIONS",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 35.0,
+                          letterSpacing: 2.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ))),
+                  ListTile(
+                    leading: Icon(
+                      Icons.home,
+                      size: 30.0,
+                    ),
+                    title: Text('Home',
+                        style: TextStyle(
+                          fontSize: 25.0,
+                        )),
+                    onTap: null,
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.alarm,
+                      size: 30.0,
+                    ),
+                    title: Text('Alarm',
+                        style: TextStyle(
+                          fontSize: 25.0,
+                        )),
+                    onTap: null,
+                  ),
+                ]))),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 1.0, horizontal: 4.0),
           child: Column(children: <Widget>[
