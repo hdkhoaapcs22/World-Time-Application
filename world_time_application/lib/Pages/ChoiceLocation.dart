@@ -69,6 +69,11 @@ class _ChooseLocationState extends State<ChooseLocation> {
               ),
             ),
             Expanded(
+                child: Scrollbar(
+              thumbVisibility: true,
+              trackVisibility: true,
+              interactive: true,
+              thickness: 8.0,
               child: ListView.builder(
                 itemCount: locations.length,
                 itemBuilder: (context, index) {
@@ -88,7 +93,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
                   );
                 },
               ),
-            )
+            ))
           ]),
         ));
   }
