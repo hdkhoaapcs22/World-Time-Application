@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../Services/world_time.dart';
 import 'dart:io';
-import 'package:path_provider/path_provider.dart';
 
 class ChooseLocation extends StatefulWidget {
   const ChooseLocation({super.key});
@@ -57,29 +56,40 @@ class _ChooseLocationState extends State<ChooseLocation> {
           title: const Text("Choose Location"),
           centerTitle: true,
         ),
-        body: Scrollbar(
-          thumbVisibility: true,
-          trackVisibility: true,
-          thickness: 8.0,
-          child: ListView.builder(
-            itemCount: locations.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(6.0),
-                child: Card(
-                    child: ListTile(
-                  onTap: () {
-                    updateTime(index);
-                  },
-                  title: Text(locations[index].location),
-                  leading: CircleAvatar(
-                    backgroundImage:
-                        AssetImage('lib/assets/${locations[index].flag}'),
-                  ),
-                )),
-              );
-            },
-          ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 1.0, horizontal: 4.0),
+          child: Column(children: <Widget>[
+            const SizedBox(height: 10.0),
+            const TextField(
+              autocorrect: true,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Search',
+                hintText: 'Search',
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: locations.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: Card(
+                        child: ListTile(
+                      onTap: () {
+                        updateTime(index);
+                      },
+                      title: Text(locations[index].location),
+                      leading: CircleAvatar(
+                        backgroundImage:
+                            AssetImage('lib/assets/${locations[index].flag}'),
+                      ),
+                    )),
+                  );
+                },
+              ),
+            )
+          ]),
         ));
   }
 }
