@@ -43,26 +43,29 @@ class _ChooseLocationState extends State<ChooseLocation> {
   }
 
   void updateTime(index) async {
-    WorldTime instance = locations[index];
+    WorldTime instance = filteredLocations[index];
     await instance.getTime();
     // pop function helps us to go back to the home page
     // we pass the data to home page because we want to display the data on the home page
-    Navigator.pop(context, {
-      'location': instance.location,
-      'flag': instance.flag,
-      'time': instance.time,
-      'isDaytime': instance.isDaytime
-    });
+    if (context.mounted) {
+      Navigator.pop(context, {
+        'location': instance.location,
+        'flag': instance.flag,
+        'time': instance.time,
+        'isDaytime': instance.isDaytime
+      });
+    }
   }
 
-  void searchingHelper(value) {
+  void searchingHelper(String userInputString) {
     List<WorldTime> temp = [];
-    if (temp.isEmpty == true) {
+    if (userInputString.isEmpty == true) {
       temp = locations;
     } else {
       temp = locations
-          .where((element) =>
-              element.location.toLowerCase().contains(value.toLowerCase()))
+          .where((element) => element.location
+              .toLowerCase()
+              .contains(userInputString.toLowerCase()))
           .toList();
     }
 
@@ -74,10 +77,19 @@ class _ChooseLocationState extends State<ChooseLocation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: true,
         backgroundColor: Colors.cyan[100],
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 2, 42, 110),
-          title: const Text("Choose Location"),
+          title: const Text(
+            "Choose Location",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20.0,
+              letterSpacing: 2.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           centerTitle: true,
         ),
         body: Padding(
@@ -89,10 +101,10 @@ class _ChooseLocationState extends State<ChooseLocation> {
               onChanged: (unserInputString) =>
                   searchingHelper(unserInputString),
               decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Search',
-                hintText: 'Search',
-              ),
+                  border: OutlineInputBorder(),
+                  labelText: 'Search',
+                  hintText: 'Search',
+                  suffixIcon: Icon(Icons.search)),
             ),
             Expanded(
                 child: Scrollbar(
@@ -112,8 +124,8 @@ class _ChooseLocationState extends State<ChooseLocation> {
                       },
                       title: Text(filteredLocations[index].location),
                       leading: CircleAvatar(
-                        backgroundImage:
-                            AssetImage('lib/assets/${filteredLocations[index].flag}'),
+                        backgroundImage: AssetImage(
+                            'lib/assets/${filteredLocations[index].flag}'),
                       ),
                     )),
                   );
