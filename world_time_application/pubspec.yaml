@@ -61,9 +61,11 @@ flutter:
 
     # To add assets to your application, add an assets section, like this:
     assets:
-        - assets/data/data.txt
+        - assets/data.json
         - assets/MorningTime.jpg
         - assets/NightTime.jpg
+        - assets/SunriseTime.jpg
+        - assets/SunsetTime.jpg
         - assets/VietnamFlag.jpg
         - assets/CubaFlag.jpg
         - assets/RussiaFlag.jpg
@@ -75,6 +77,15 @@ flutter:
         - assets/UKFlag.jpg
         - assets/Hong_KongFlag.jpg
         - assets/USAFlag.jpg
+        - assets/AustraliaFlag.jpg
+        - assets/CanadaFlag.jpg
+        - assets/FranceFlag.jpg
+        - assets/GermanyFlag.jpg
+        - assets/IndonesiaFlag.jpg
+        - assets/IsraelFlag.jpg
+        - assets/ItalyFlag.jpg
+        - assets/SingaporeFlag.jpg
+        - assets/ThailandFlag.jpg
     # An image asset can refer to one or more resolution-specific "variants", see
     # https://flutter.dev/assets-and-images/#resolution-aware
 

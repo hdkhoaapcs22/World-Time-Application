@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 class HOME extends StatefulWidget {
@@ -16,11 +14,36 @@ class _HOMEState extends State<HOME> {
     data = data.isNotEmpty
         ? data
         : ModalRoute.of(context)!.settings.arguments as Map;
-    String backgroundImage =
-        data['isDaytime'] ? 'MorningTime.jpg' : 'NightTime.jpg';
+    String backgroundImage = "";
+    Color? bgColor;
+    String tmp = data["dailyTime"].toString();
+    switch (tmp) {
+      case "Daytime.sunrise":
+        {
+          backgroundImage = "SunriseTime.jpg";
+          bgColor = Colors.blue[400];
+          break;
+        }
+      case "Daytime.morning":
+        {
+          backgroundImage = "MorningTime.jpg";
+          bgColor = Colors.blue[400];
+          break;
+        }
+      case "Daytime.sunset":
+        {
+          backgroundImage = "SunsetTime.jpg";
+          bgColor = Colors.blue[400];
+          break;
+        }
+      case "Daytime.night":
+        {
+          backgroundImage = "NightTime.jpg";
+          bgColor = Colors.indigo[400];
+          break;
+        }
+    }
 
-    Color? bgColor =
-        data['isDaytime'] ? Colors.blue[400] : Colors.indigo[400] as Color;
     return Scaffold(
         backgroundColor: bgColor,
         body: SafeArea(
@@ -45,7 +68,7 @@ class _HOMEState extends State<HOME> {
                         data = {
                           'time': result['time'],
                           'location': result['location'],
-                          'isDaytime': result['isDaytime'],
+                          'dailyTime': result['dailyTime'],
                           'flag': result['flag']
                         };
                       });

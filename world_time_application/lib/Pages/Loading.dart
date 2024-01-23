@@ -13,7 +13,9 @@ class _LoadingState extends State<Loading> {
   // this function helps us to get the time from the world time api
   void setupWorldTime() async {
     WorldTime instance = WorldTime(
-        location: 'Ho Chi Minh', flag: 'Vietnam.jpg', url: 'Asia/Ho_Chi_Minh');
+        location: 'Ho Chi Minh',
+        flag: 'VietnamFlag.jpg',
+        url: 'Asia/Ho_Chi_Minh');
     await instance.getTime();
     // it helps us to navigate to the home page
     // the arguments is a map and it helps us to pass data to the home page
@@ -22,7 +24,7 @@ class _LoadingState extends State<Loading> {
       'location': instance.location,
       'flag': instance.flag,
       'time': instance.time,
-      'isDaytime': instance.isDaytime
+      'dailyTime': instance.dailyTime
     });
   }
 
