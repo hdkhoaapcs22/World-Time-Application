@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class HOME extends StatefulWidget {
@@ -15,7 +17,7 @@ class _HOMEState extends State<HOME> {
         ? data
         : ModalRoute.of(context)!.settings.arguments as Map;
     String backgroundImage =
-        data['isDaytime'] ? 'Morning Time.jpg' : 'Night Time.jpg';
+        data['isDaytime'] ? 'MorningTime.jpg' : 'NightTime.jpg';
 
     Color? bgColor =
         data['isDaytime'] ? Colors.blue[400] : Colors.indigo[400] as Color;
@@ -25,7 +27,7 @@ class _HOMEState extends State<HOME> {
           child: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('lib/assets/$backgroundImage'),
+                image: AssetImage('assets/$backgroundImage'),
                 fit: BoxFit.cover,
               ),
             ),
