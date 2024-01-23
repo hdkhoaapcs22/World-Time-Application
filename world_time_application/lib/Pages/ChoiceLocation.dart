@@ -76,6 +76,14 @@ class _ChooseLocationState extends State<ChooseLocation> {
 
   @override
   Widget build(BuildContext context) {
+    // var data = await rootBundle.loadString('assets/data/data.txt');
+    // List<String> locations = data.split('\n');
+    // for (var location in locations) {
+    //   List<String> locationData = location.split(', ');
+    //   this.locations.add(WorldTime(
+    //       url: locationData[0],
+    //       location: locationData[1],
+    //       flag: locationData[2]));
     return Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.cyan[100],
