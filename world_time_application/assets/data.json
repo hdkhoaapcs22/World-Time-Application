@@ -1,0 +1,104 @@
+{
+    "items": [
+        {
+        "url": "Asia/Ho_Chi_Minh",
+        "location": "Ho Chi Minh", 
+        "flag": "VietnamFlag.jpg"
+        },
+        {
+            "url": "America/Havana",
+            "location": "La Habana", 
+            "flag": "CubaFlag.jpg"
+        },
+        {
+            "url": " Europe/Moscow",
+            "location": "Moscow", 
+            "flag": "RussiaFlag.jpg"
+        },
+        {
+            "url": "Asia/Thimphu",
+            "location": "Thimphu", 
+            "flag": "BhutanFlag.jpg"
+        },
+        {
+            "url": "Africa/Cairo",
+            "location": "Cairo", 
+            "flag": "EgyptFlag.jpg"
+        },
+        {
+            "url": "Asia/Tokyo",
+            "location": "Tokyo", 
+            "flag": "JapanFlag.jpg"
+        },
+        {
+            "url": "Asia/Seoul",
+            "location": "Seoul", 
+            "flag": "KoreaFlag.jpg"
+        },
+        {
+            "url": "Asia/Tehran",
+            "location": "Tehran", 
+            "flag": "IranFlag.jpg"
+        },
+        {
+            "url": "Asia/Bangkok",
+            "location": "Bangkok",
+            "flag": "ThailandFlag.jpg"
+        },
+        {
+            "url": "Asia/Singapore",
+            "location": "Singapore",
+            "flag": "SingaporeFlag.jpg"
+        },
+        {
+            "url": "Asia/Jakarta",
+            "location": "Jakarta",
+            "flag": "IndonesiaFlag.jpg"
+        },
+        {
+            "url": "Europe/London",
+            "location": "London", 
+            "flag": "UKFlag.jpg"
+        },
+        {
+            "url": "Asia/Hong_Kong",
+            "location": "Hong Kong", 
+            "flag": "Hong_KongFlag.jpg"
+        },
+        {
+            "url": "America/New_York",
+            "location": "New York", 
+            "flag": "USAFlag.jpg"
+        },
+        {
+            "url": "Australia/Sydney",
+            "location": "Sydney",
+            "flag": "AustraliaFlag.jpg"
+        },
+        {
+            "url": "Europe/Paris",
+            "location": "Paris",
+            "flag": "FranceFlag.jpg"
+        },
+        {
+            "url": "Europe/Rome",
+            "location": "Rome",
+            "flag": "ItalyFlag.jpg"
+        },
+        {
+            "url": "Europe/Berlin",
+            "location": "Berlin",
+            "flag": "GermanyFlag.jpg"
+        },
+        {
+            "url": "Asia/Jerusalem",
+            "location": "Jerusalem",
+            "flag": "IsraelFlag.jpg"
+        },
+        {
+            "url": "Toronto",
+            "location": "Toronto",
+            "flag": "CanadaFlag.jpg"
+        }
+    ]
+}

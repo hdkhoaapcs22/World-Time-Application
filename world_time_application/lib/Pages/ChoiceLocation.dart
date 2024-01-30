@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../Services/world_time.dart';
-import 'dart:io';
+import 'package:flutter/services.dart' show rootBundle;
+import 'dart:convert';
 
 class ChooseLocation extends StatefulWidget {
   const ChooseLocation({super.key});
@@ -11,34 +12,22 @@ class ChooseLocation extends StatefulWidget {
 
 class _ChooseLocationState extends State<ChooseLocation> {
   // we create a list of world time objects
-  List<WorldTime> locations = [
-    WorldTime(
-        url: 'Asia/Ho_Chi_Minh',
-        location: 'Ho Chi Minh',
-        flag: 'Vietnam Flag.jpg'),
-    WorldTime(
-        url: 'America/Havana', location: 'La Habana', flag: 'Cuba Flag.jpg'),
-    WorldTime(
-        url: 'Europe/Moscow', location: 'Moscow', flag: 'Russia Flag.jpg'),
-    WorldTime(
-        url: 'Asia/Thimphu', location: 'Thimphu', flag: 'Bhutan Flag.jpg'),
-    WorldTime(url: 'Africa/Cairo', location: 'Cairo', flag: 'Egypt Flag.jpg'),
-    WorldTime(url: 'Asia/Tokyo', location: 'Tokyo', flag: 'Japan Flag.jpg'),
-    WorldTime(url: 'Asia/Seoul', location: 'Seoul', flag: 'Korea Flag.jpg'),
-    WorldTime(url: 'Asia/Tehran', location: 'Tehran', flag: 'Iran Flag.jpg'),
-    WorldTime(url: 'Europe/London', location: 'London', flag: 'UK Flag.jpg'),
-    WorldTime(
-        url: 'Asia/Hong_Kong',
-        location: 'Hong Kong',
-        flag: 'Hong Kong Flag.jpg'),
-    WorldTime(
-        url: 'America/New_York', location: 'New York', flag: 'USA Flag.jpg'),
-  ];
+  List<WorldTime> locations = [];
   List<WorldTime> filteredLocations = [];
+
+  void loadData() async {
+    final String response = await rootBundle.loadString('assets/data.json');
+    final productdata = await json.decode(response);
+    var list = productdata["items"] as List<dynamic>;
+    setState(() {
+      locations = list.map((e) => WorldTime.fromJson(e)).toList();
+      filteredLocations = locations;
+    });
+  }
 
   @override
   void initState() {
-    filteredLocations = locations;
+    loadData();
     super.initState();
   }
 
@@ -52,7 +41,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
         'location': instance.location,
         'flag': instance.flag,
         'time': instance.time,
-        'isDaytime': instance.isDaytime
+        'dailyTime': instance.dailyTime
       });
     }
   }
@@ -76,14 +65,6 @@ class _ChooseLocationState extends State<ChooseLocation> {
 
   @override
   Widget build(BuildContext context) {
-    // var data = await rootBundle.loadString('assets/data/data.txt');
-    // List<String> locations = data.split('\n');
-    // for (var location in locations) {
-    //   List<String> locationData = location.split(', ');
-    //   this.locations.add(WorldTime(
-    //       url: locationData[0],
-    //       location: locationData[1],
-    //       flag: locationData[2]));
     return Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.cyan[100],
@@ -123,17 +104,6 @@ class _ChooseLocationState extends State<ChooseLocation> {
                       ))),
                   ListTile(
                     leading: Icon(
-                      Icons.home,
-                      size: 30.0,
-                    ),
-                    title: Text('Home',
-                        style: TextStyle(
-                          fontSize: 25.0,
-                        )),
-                    onTap: null,
-                  ),
-                  ListTile(
-                    leading: Icon(
                       Icons.alarm,
                       size: 30.0,
                     ),
@@ -145,7 +115,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
                   ),
                 ]))),
         body: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 1.0, horizontal: 4.0),
+          padding: const EdgeInsets.symmetric(vertical: 1.0, horizontal: 5.0),
           child: Column(children: <Widget>[
             const SizedBox(height: 10.0),
             TextField(
@@ -177,7 +147,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
                       title: Text(filteredLocations[index].location),
                       leading: CircleAvatar(
                         backgroundImage: AssetImage(
-                            'lib/assets/${filteredLocations[index].flag}'),
+                            'assets/${filteredLocations[index].flag}'),
                       ),
                     )),
                   );
